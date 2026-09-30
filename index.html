@@ -806,6 +806,42 @@
           gap: 35px;
         }
       }
+      .botanical-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        width: min(560px, 75%);
+        margin: 0 auto 35px;
+        pointer-events: none;
+      }
+      .botanical-divider::before,
+      .botanical-divider::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: linear-gradient(90deg, transparent, #77aaa490);
+      }
+      .botanical-divider::after {
+        transform: scaleX(-1);
+      }
+      .botanical-divider span {
+        font: 32px/1 Georgia, serif;
+        color: #dda77f;
+      }
+      .services-section,
+      .about {
+        padding-top: 42px;
+      }
+      @media (max-width: 600px) {
+        .botanical-divider {
+          gap: 12px;
+          margin-bottom: 30px;
+        }
+        .botanical-divider span {
+          font-size: 26px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -856,6 +892,7 @@
         </div>
       </section>
       <section id="approach" class="section services-section">
+        <div class="botanical-divider" aria-hidden="true"><span>✿</span></div>
         <div class="wrap">
           <div class="intro">
             <span class="eyebrow">Support that meets you where you are</span>
@@ -916,6 +953,7 @@
         </div>
       </section>
       <section id="about" class="section about">
+        <div class="botanical-divider" aria-hidden="true"><span>✿</span></div>
         <div class="wrap about-grid">
           <div class="approach-quote">
             <p>
