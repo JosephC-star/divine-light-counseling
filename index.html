@@ -845,6 +845,13 @@
       .contact{position:relative;isolation:isolate;overflow:hidden}
       .contact-birds{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;opacity:.16;pointer-events:none;z-index:-1}
       @media(max-width:760px){.contact-birds{object-fit:cover;opacity:.12}}
+          .quote-garden{align-self:center;display:flex;justify-content:center;align-items:center;position:relative;min-width:0;padding:56px 0 60px}
+      .quote-garden .approach-quote{position:relative;width:100%;z-index:1}
+      .quote-leaves{position:absolute;left:-56px;top:0;height:100%;width:160px;overflow:visible;pointer-events:none;opacity:.48}
+      .quote-flowers{position:absolute;left:0;width:100%;aspect-ratio:5 / 1;background-image:url("assets/quote-wildflowers.webp");background-size:100% auto;background-repeat:no-repeat;opacity:.48;pointer-events:none}
+      .quote-flowers-top{top:8px;background-position:center top}
+      .quote-flowers-bottom{bottom:0;background-position:center bottom}
+      @media(max-width:760px){.quote-garden{padding:48px 0 54px}.quote-leaves{left:-36px;width:130px;opacity:.42}.quote-flowers{opacity:.42}}
     </style>
   </head>
   <body>
@@ -958,12 +965,18 @@
       <section id="about" class="section about">
         <div class="botanical-divider" aria-hidden="true"><span>✿</span></div>
         <div class="wrap about-grid">
+          <div class="quote-garden">
+            <div class="quote-flowers quote-flowers-top" aria-hidden="true"></div>
+            <div class="quote-flowers quote-flowers-bottom" aria-hidden="true"></div>
+            <svg class="quote-leaves" viewBox="0 0 160 900" preserveAspectRatio="xMinYMid meet" aria-hidden="true"><use href="assets/quote-leaves.svg#branch" /></svg>
           <div class="approach-quote">
             <p>
               “I provide a non-judgmental atmosphere where you can process things of the past and
               any negative beliefs that you may have adapted over time in a safe environment.”
             </p>
             <small>— Holli B. Shelton-Oliver, LPC-S</small>
+          </div>
+
           </div>
           <div class="copy">
             <span class="eyebrow">Meet your counselor</span>
