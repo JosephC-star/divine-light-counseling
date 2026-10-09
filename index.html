@@ -852,6 +852,22 @@
       .quote-flowers-top{top:8px;background-position:center top}
       .quote-flowers-bottom{bottom:0;background-position:center bottom}
       @media(max-width:760px){.quote-garden{padding:48px 0 54px}.quote-leaves{left:-36px;width:130px;opacity:.42}.quote-flowers{opacity:.42}}
+
+      #home, #approach, #about, #contact {scroll-margin-top:100px}
+      .menu-toggle,.mobile-menu,.back-to-top{display:none}
+      [hidden]{display:none!important}
+      .menu-toggle{border:1px solid #badbd5;border-radius:12px;background:#eef8f4;color:#125e68;width:44px;height:44px;cursor:pointer;font-size:1.5rem;flex-shrink:0}
+      .menu-toggle:focus-visible,.mobile-menu a:focus-visible,.back-to-top:focus-visible{outline:3px solid #c79012;outline-offset:3px}
+      @media(max-width:760px){
+        .menu-toggle{display:inline-grid;place-items:center;order:2}
+        .links{gap:8px}
+        .nav.wrap{width:calc(100% - 28px)}
+        .brand{font-size:clamp(.78rem,3.4vw,.96rem)}
+        .mobile-menu{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:8px 0 14px;border-top:1px solid #dcece8}
+        .mobile-menu a{display:block;padding:12px 14px;border-radius:10px;text-decoration:none;font-weight:600;color:#145e68;min-height:44px}
+        .mobile-menu a:hover{background:#e9f7f3}
+        .back-to-top{display:inline-flex;align-items:center;gap:6px;position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:9;min-height:44px;padding:10px 15px;border:1px solid #badbd5;border-radius:100px;background:#fff;color:#125e68;text-decoration:none;font-weight:700;box-shadow:0 4px 18px #16454a20}
+      }
     </style>
   </head>
   <body>
@@ -863,6 +879,7 @@
           ></a
         >
         <div class="links">
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation menu"><span aria-hidden="true">☰</span></button>
           <a href="#approach">Services</a><a href="#about">Meet Holli</a
           ><a href="#contact">Contact</a
           ><a
@@ -873,6 +890,7 @@
           >
         </div>
       </nav>
+      <nav id="mobile-menu" class="mobile-menu wrap" aria-label="Mobile navigation" hidden><a href="#home">Home</a><a href="#approach">Services</a><a href="#about">Meet Holli</a><a href="#contact">Contact</a></nav>
     </header>
     <main>
       <section id="home" class="hero">
@@ -1161,7 +1179,42 @@
         ><span>Designed by <a href="https://clemonswebco.com/">Clemons Web Co.</a></span>
       </div>
     </footer>
+    <a class="back-to-top" href="#home" aria-label="Back to top" hidden>↑ <span>Top</span></a>
     <script>
+      const menuToggle = document.querySelector(".menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      function closeMenu() {
+        mobileMenu.hidden = true;
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+      }
+      menuToggle.addEventListener("click", () => {
+        const opening = mobileMenu.hidden;
+        mobileMenu.hidden = !opening;
+        menuToggle.setAttribute("aria-expanded", String(opening));
+        menuToggle.setAttribute("aria-label", opening ? "Close navigation menu" : "Open navigation menu");
+      });
+      mobileMenu.addEventListener("click", (event) => {
+        const link = event.target.closest("a");
+        if (!link) return;
+        closeMenu();
+        const section = document.querySelector(link.hash);
+        if (section) {
+          section.setAttribute("tabindex", "-1");
+          section.focus({preventScroll:true});
+        }
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !mobileMenu.hidden) {closeMenu();menuToggle.focus();}
+      });
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".header")) closeMenu();
+      });
+      window.matchMedia("(max-width:760px)").addEventListener("change", closeMenu);
+      const backToTop = document.querySelector(".back-to-top");
+      function updateBackToTop() {backToTop.hidden = window.scrollY < 400;}
+      window.addEventListener("scroll", updateBackToTop, {passive:true});
+      updateBackToTop();
       document.getElementById("year").textContent = new Date().getFullYear();
       document.getElementById("inquiry-form").addEventListener("submit", function (event) {
         event.preventDefault();
